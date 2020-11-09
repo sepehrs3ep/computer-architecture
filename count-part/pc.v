@@ -1,20 +1,14 @@
-
-module pc(out, clk, reset);
-
-	parameter WIDTH = 8;
-
-	output [WIDTH-1 : 0] out;
-	input clk, reset;
-
-	reg [WIDTH-1 : 0] out;
-	wire clk, reset;
-
-	always @(posedge clk)
-		out <= out + 1;
-	
-	always @reset
-		if (reset)
-			assign out = 0;
-		else
-			deassign out;
-endmodule
+module pc(  clk , data_input , pcout , reset ,write);
+input clk , reset,write;
+parameter n=63;
+input [n:0] data_input ;
+output  reg [n:0]  pcout;
+always @(posedge clk)
+begin
+    if(reset)
+        pcout = 0 ;
+    else
+       if (write)
+          pcout = data_input ;
+end
+endmodule;
